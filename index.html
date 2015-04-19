@@ -9,21 +9,24 @@
 		{
 			$('form').submit(function()
 			{
-				var city = $(this).input.attr('value');
+				var city = $('#city').val();
+				// alert(city);
 				var url = 'http://api.openweathermap.org/data/2.5/weather?q='+city+'&units=imperial';
-				$.get(url, function(city)
+				$.get('http://api.openweathermap.org/data/2.5/weather?q='+city+'&units=imperial', function(citys)
 				{
-					var city_info = '<h1>'+city.list.name+'</h1>';
-					city_info += '<h4>Temperature: '+city.main.temp+'</h4>';
+					var city_info = '<h1>'+citys.name+'</h1>';
+					city_info += '<h4>Temperature: '+citys.main.temp+'</h4>';
+					// alert(city_info);
+					$('#temp').html(city_info);
 				}, 'json');
-				$('')
+				return false;
 			});
 		})
 	</script>
 </head>
 <body>
 	<form action="#">
-		<input type="text">
+		<input type="text" id="city">
 		<input type="submit" value="Search Weather">
 	</form>
 	<div id='temp'></div>
